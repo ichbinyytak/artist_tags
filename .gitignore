@@ -1,0 +1,16 @@
+# Temporary working/archive directories.
+/temp1/
+/temp2/
+/temp3/
+/temp4/
+
+# Common local/runtime noise.
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+__pycache__/
+node_modules/

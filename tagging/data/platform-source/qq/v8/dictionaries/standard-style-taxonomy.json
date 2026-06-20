@@ -1,0 +1,2946 @@
+{
+  "version": 8,
+  "description": "Database-owned bilingual style taxonomy. Broad group IDs remain stable; normalized child style IDs unify equivalent genre names used by different music platforms.",
+  "scope": "Normalization target for all platform artist tags. Platform labels are aliases only and never become database identifiers.",
+  "source_files": [
+    "temp1/qq-tag-taxonomy-work/dictionaries/cross-platform-style-vocabulary.json",
+    "temp1/qq-tag-taxonomy-work/dictionaries/qq-singer-genre-dictionary.json",
+    "temp1/qq-tag-taxonomy-work/dictionaries/qq-genre-category-dictionary.json",
+    "temp1/qq-tag-taxonomy-work/dictionaries/qq-tag-id-dictionary.json",
+    "data/platform-source/qq/qq-artist-stats-backup.json"
+  ],
+  "source_types": {
+    "platform_alias": "A label retrieved from a platform genre or style vocabulary and converted to one database standard style.",
+    "standard_alias": "A language or spelling variant used for searching the same database standard style.",
+    "curated_family_assignment": "Our parent-family placement for a cross-platform style; platform category trees can differ."
+  },
+  "standard_id_system": {
+    "version": 1,
+    "storage_type": "string",
+    "format": {
+      "standard_group_id": "NN",
+      "standard_style_id": "NN.MM",
+      "standard_auxiliary_id": "90.MM"
+    },
+    "rules": [
+      "NN identifies one broad genre family; NN.MM identifies one normalized child style within that family.",
+      "The first two characters of every standard_style_id must equal its parent standard_group_id.",
+      "Platform-specific terms are stored in platform_aliases and resolve to the same standard_style_id.",
+      "IDs are strings so leading zeros remain stable in JSON, database storage, and API queries.",
+      "The 90 namespace is reserved for non-genre auxiliary tags and is not included in genre-family expansion."
+    ],
+    "query_semantics": {
+      "group_query": "Selecting a standard_group_id matches every standard_style_id beginning with standard_group_id plus '.'.",
+      "style_query": "Selecting a standard_style_id matches that child style only and never automatically adds its parent.",
+      "platform_alias_query": "Resolve a platform label to its standard_style_id first, then apply exact style-query behavior.",
+      "auxiliary_query": "Match standard_auxiliary_id exactly; auxiliary IDs never expand into genre groups."
+    }
+  },
+  "selection_policy": [
+    "Keep a child style when it appears in a retrieved platform vocabulary or is needed to unify directly equivalent platform terms.",
+    "Prefer stable genre/style concepts over language, mood, scene, era, instrument, or editorial playlist tags.",
+    "Keep regional pop styles used as genre labels by Apple Music because they are useful for the Chinese, Japanese, and Korean artist tables.",
+    "Do not infer QQ Fsinger_tag numeric meanings from this taxonomy; raw platform-ID mapping remains a separate evidence-based process."
+  ],
+  "genre_groups": [
+    {
+      "standard_group_id": "01",
+      "group_code": "pop",
+      "name_zh": "流行",
+      "name_en": "Pop"
+    },
+    {
+      "standard_group_id": "02",
+      "group_code": "rock",
+      "name_zh": "摇滚",
+      "name_en": "Rock"
+    },
+    {
+      "standard_group_id": "03",
+      "group_code": "electronic",
+      "name_zh": "电子",
+      "name_en": "Electronic"
+    },
+    {
+      "standard_group_id": "04",
+      "group_code": "folk",
+      "name_zh": "民谣",
+      "name_en": "Folk"
+    },
+    {
+      "standard_group_id": "05",
+      "group_code": "hip_hop",
+      "name_zh": "嘻哈与说唱",
+      "name_en": "Hip-Hop and Rap"
+    },
+    {
+      "standard_group_id": "06",
+      "group_code": "rnb_soul",
+      "name_zh": "节奏布鲁斯与灵魂乐",
+      "name_en": "R&B and Soul"
+    },
+    {
+      "standard_group_id": "07",
+      "group_code": "jazz_blues",
+      "name_zh": "爵士与布鲁斯",
+      "name_en": "Jazz and Blues"
+    },
+    {
+      "standard_group_id": "08",
+      "group_code": "classical",
+      "name_zh": "古典",
+      "name_en": "Classical"
+    },
+    {
+      "standard_group_id": "09",
+      "group_code": "easy_listening_new_age",
+      "name_zh": "轻音乐与新世纪",
+      "name_en": "Easy Listening and New Age"
+    },
+    {
+      "standard_group_id": "10",
+      "group_code": "country",
+      "name_zh": "乡村",
+      "name_en": "Country"
+    },
+    {
+      "standard_group_id": "11",
+      "group_code": "traditional_world",
+      "name_zh": "传统与世界音乐",
+      "name_en": "Traditional and World Music"
+    },
+    {
+      "standard_group_id": "12",
+      "group_code": "soundtrack_game",
+      "name_zh": "原声与游戏音乐",
+      "name_en": "Soundtrack and Game Music"
+    }
+  ],
+  "styles": [
+    {
+      "standard_style_id": "01.01",
+      "standard_group_id": "01",
+      "style_code": "pop",
+      "group_code": "pop",
+      "name_zh": "流行",
+      "name_en": "Pop",
+      "aliases": [
+        "流行音乐",
+        "pop music",
+        "pop and chart",
+        "Vocal Pop",
+        "vocal pop",
+        "space age pop",
+        "ポップ",
+        "팝"
+      ],
+      "platform_aliases": {
+        "qq_singer": [
+          "流行"
+        ],
+        "qq_playlist": [
+          "流行"
+        ],
+        "netease_playlist": [
+          "流行"
+        ],
+        "apple_music": [
+          "国际流行",
+          "Pop"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "01.02",
+      "standard_group_id": "01",
+      "style_code": "c_pop",
+      "group_code": "pop",
+      "name_zh": "华语流行",
+      "name_en": "C-Pop",
+      "aliases": [
+        "中文流行",
+        "Chinese Pop",
+        "mandopop",
+        "mandorap",
+        "マンドポップ",
+        "만다린 팝"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "C-Pop",
+          "国语流行"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "01.03",
+      "standard_group_id": "01",
+      "style_code": "cantopop",
+      "group_code": "pop",
+      "name_zh": "粤语流行",
+      "name_en": "Cantopop",
+      "aliases": [
+        "港乐",
+        "HK-Pop",
+        "cantopop",
+        "cantopop trio",
+        "cantopop quartet",
+        "cantopop quintet",
+        "indie cantopop"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "粤语流行",
+          "Cantopop/HK-Pop"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "01.04",
+      "standard_group_id": "01",
+      "style_code": "k_pop",
+      "group_code": "pop",
+      "name_zh": "韩国流行",
+      "name_en": "K-Pop",
+      "aliases": [
+        "韩流",
+        "kpop",
+        "4th gen k-pop",
+        "케이팝"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "K-Pop"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "01.05",
+      "standard_group_id": "01",
+      "style_code": "j_pop",
+      "group_code": "pop",
+      "name_zh": "日本流行",
+      "name_en": "J-Pop",
+      "aliases": [
+        "日本流行音乐",
+        "japanese pop",
+        "j-pop",
+        "jpop"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "J-Pop"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "01.06",
+      "standard_group_id": "01",
+      "style_code": "adult_contemporary",
+      "group_code": "pop",
+      "name_zh": "成人当代流行",
+      "name_en": "Adult Contemporary",
+      "aliases": [
+        "AC Pop",
+        "adult contemporary",
+        "어덜트 컨템포러리"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "Adult Contemporary"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "01.07",
+      "standard_group_id": "01",
+      "style_code": "pop_ballad",
+      "group_code": "pop",
+      "name_zh": "抒情流行",
+      "name_en": "Pop Ballad",
+      "aliases": [
+        "ballad",
+        "流行情歌",
+        "抒情歌曲"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.08",
+      "standard_group_id": "01",
+      "style_code": "teen_pop",
+      "group_code": "pop",
+      "name_zh": "青少年流行",
+      "name_en": "Teen Pop",
+      "aliases": [
+        "teen pop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.09",
+      "standard_group_id": "01",
+      "style_code": "dance_pop",
+      "group_code": "pop",
+      "name_zh": "舞曲流行",
+      "name_en": "Dance-Pop",
+      "aliases": [
+        "dance-pop",
+        "dance pop",
+        "bubblegum dance"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.10",
+      "standard_group_id": "01",
+      "style_code": "indie_pop",
+      "group_code": "pop",
+      "name_zh": "独立流行",
+      "name_en": "Indie Pop",
+      "aliases": [
+        "indie pop",
+        "alternative pop",
+        "인디 팝"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.11",
+      "standard_group_id": "01",
+      "style_code": "dream_pop",
+      "group_code": "pop",
+      "name_zh": "梦幻流行",
+      "name_en": "Dream Pop",
+      "aliases": [
+        "dream pop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.12",
+      "standard_group_id": "01",
+      "style_code": "kayokyoku",
+      "group_code": "pop",
+      "name_zh": "日本歌谣曲",
+      "name_en": "Kayokyoku",
+      "aliases": [
+        "kayōkyoku",
+        "kayoukyoku",
+        "歌謡曲",
+        "歌谣曲",
+        "idol kayō",
+        "showa kayou kei"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.13",
+      "standard_group_id": "01",
+      "style_code": "shidaiqu",
+      "group_code": "pop",
+      "name_zh": "时代曲",
+      "name_en": "Shidaiqu",
+      "aliases": [
+        "shidaiqu",
+        "時代曲"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.14",
+      "standard_group_id": "01",
+      "style_code": "hokkien_pop",
+      "group_code": "pop",
+      "name_zh": "闽南语流行",
+      "name_en": "Hokkien Pop",
+      "aliases": [
+        "hokkien pop",
+        "閩南語流行"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.15",
+      "standard_group_id": "01",
+      "style_code": "city_pop",
+      "group_code": "pop",
+      "name_zh": "城市流行",
+      "name_en": "City Pop",
+      "aliases": [
+        "city pop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.16",
+      "standard_group_id": "01",
+      "style_code": "power_pop",
+      "group_code": "pop",
+      "name_zh": "强力流行",
+      "name_en": "Power Pop",
+      "aliases": [
+        "power pop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.17",
+      "standard_group_id": "01",
+      "style_code": "electropop",
+      "group_code": "pop",
+      "name_zh": "电子流行",
+      "name_en": "Electropop",
+      "aliases": [
+        "electropop",
+        "electro pop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.18",
+      "standard_group_id": "01",
+      "style_code": "art_pop",
+      "group_code": "pop",
+      "name_zh": "艺术流行",
+      "name_en": "Art Pop",
+      "aliases": [
+        "art pop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.19",
+      "standard_group_id": "01",
+      "style_code": "baroque_pop",
+      "group_code": "pop",
+      "name_zh": "巴洛克流行",
+      "name_en": "Baroque Pop",
+      "aliases": [
+        "baroque pop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.20",
+      "standard_group_id": "01",
+      "style_code": "europop",
+      "group_code": "pop",
+      "name_zh": "欧洲流行",
+      "name_en": "Europop",
+      "aliases": [
+        "europop",
+        "euro pop",
+        "german pop",
+        "German Pop",
+        "독일 팝",
+        "swedish pop",
+        "v-pop",
+        "t-pop",
+        "schlager",
+        "传统流行乐"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.21",
+      "standard_group_id": "01",
+      "style_code": "bubblegum_pop",
+      "group_code": "pop",
+      "name_zh": "泡泡糖流行",
+      "name_en": "Bubblegum Pop",
+      "aliases": [
+        "bubblegum pop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.22",
+      "standard_group_id": "01",
+      "style_code": "bedroom_pop",
+      "group_code": "pop",
+      "name_zh": "卧室流行",
+      "name_en": "Bedroom Pop",
+      "aliases": [
+        "bedroom pop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.23",
+      "standard_group_id": "01",
+      "style_code": "psychedelic_pop",
+      "group_code": "pop",
+      "name_zh": "迷幻流行",
+      "name_en": "Psychedelic Pop",
+      "aliases": [
+        "psychedelic pop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "01.24",
+      "standard_group_id": "01",
+      "style_code": "latin_pop",
+      "group_code": "pop",
+      "name_zh": "拉丁流行",
+      "name_en": "Latin Pop",
+      "aliases": [
+        "latin pop",
+        "西班牙语流行音乐"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.01",
+      "standard_group_id": "02",
+      "style_code": "rock",
+      "group_code": "rock",
+      "name_zh": "摇滚",
+      "name_en": "Rock",
+      "aliases": [
+        "摇滚乐",
+        "classic pop and rock",
+        "rock and indie",
+        "british rock",
+        "ロック",
+        "록",
+        "한국 록"
+      ],
+      "platform_aliases": {
+        "qq_singer": [
+          "摇滚"
+        ],
+        "qq_playlist": [
+          "摇滚"
+        ],
+        "netease_playlist": [
+          "摇滚"
+        ],
+        "apple_music": [
+          "摇滚",
+          "Rock"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "02.02",
+      "standard_group_id": "02",
+      "style_code": "pop_rock",
+      "group_code": "rock",
+      "name_zh": "流行摇滚",
+      "name_en": "Pop Rock",
+      "aliases": [
+        "pop-rock",
+        "pop rock",
+        "pop/rock",
+        "流行/摇滚",
+        "soft rock",
+        "팝/록"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "流行/摇滚",
+          "Pop/Rock"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "02.03",
+      "standard_group_id": "02",
+      "style_code": "alternative_rock",
+      "group_code": "rock",
+      "name_zh": "另类摇滚",
+      "name_en": "Alternative Rock",
+      "aliases": [
+        "Alt Rock",
+        "alternative",
+        "オルタナティブ",
+        "얼터너티브"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "Adult Alternative"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "02.04",
+      "standard_group_id": "02",
+      "style_code": "hard_rock",
+      "group_code": "rock",
+      "name_zh": "硬摇滚",
+      "name_en": "Hard Rock",
+      "aliases": [
+        "하드록"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "硬摇滚",
+          "Hard Rock"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "02.05",
+      "standard_group_id": "02",
+      "style_code": "post_rock",
+      "group_code": "rock",
+      "name_zh": "后摇",
+      "name_en": "Post-Rock",
+      "aliases": [
+        "后摇滚",
+        "post rock"
+      ],
+      "platform_aliases": {
+        "qq_playlist": [
+          "后摇"
+        ],
+        "netease_playlist": [
+          "后摇"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "02.06",
+      "standard_group_id": "02",
+      "style_code": "metal",
+      "group_code": "rock",
+      "name_zh": "金属",
+      "name_en": "Metal",
+      "aliases": [
+        "金属乐",
+        "重金属",
+        "black metal",
+        "traditional heavy metal",
+        "speed metal",
+        "power metal",
+        "rock/metal",
+        "drone metal",
+        "gothic metal",
+        "depressive black metal",
+        "メタル",
+        "메탈"
+      ],
+      "platform_aliases": {
+        "qq_playlist": [
+          "金属"
+        ],
+        "netease_playlist": [
+          "金属"
+        ],
+        "apple_music": [
+          "金属",
+          "Metal"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "02.07",
+      "standard_group_id": "02",
+      "style_code": "punk",
+      "group_code": "rock",
+      "name_zh": "朋克",
+      "name_en": "Punk",
+      "aliases": [
+        "朋克摇滚",
+        "mod punk",
+        "skate punk",
+        "horror punk",
+        "パンク",
+        "펑크"
+      ],
+      "platform_aliases": {
+        "netease_playlist": [
+          "朋克"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "02.08",
+      "standard_group_id": "02",
+      "style_code": "progressive_rock",
+      "group_code": "rock",
+      "name_zh": "前卫摇滚",
+      "name_en": "Progressive Rock",
+      "aliases": [
+        "艺术摇滚",
+        "Prog Rock",
+        "Prog-Rock/Art Rock",
+        "prog-rock/art rock",
+        "symphonic prog"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "Prog-Rock/Art Rock"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "02.09",
+      "standard_group_id": "02",
+      "style_code": "psychedelic_rock",
+      "group_code": "rock",
+      "name_zh": "迷幻摇滚",
+      "name_en": "Psychedelic Rock",
+      "aliases": [
+        "Psychedelic",
+        "acid rock",
+        "사이키델릭"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "Psychedelic"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "02.10",
+      "standard_group_id": "02",
+      "style_code": "blues_rock",
+      "group_code": "rock",
+      "name_zh": "布鲁斯摇滚",
+      "name_en": "Blues Rock",
+      "aliases": [
+        "蓝调摇滚",
+        "blues rock"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "蓝调摇滚",
+          "Blues-Rock"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "02.11",
+      "standard_group_id": "02",
+      "style_code": "britpop",
+      "group_code": "rock",
+      "name_zh": "英伦摇滚",
+      "name_en": "Britpop",
+      "aliases": [
+        "英伦",
+        "post-britpop"
+      ],
+      "platform_aliases": {
+        "netease_playlist": [
+          "英伦"
+        ],
+        "apple_music": [
+          "英伦摇滚",
+          "Britpop"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "02.12",
+      "standard_group_id": "02",
+      "style_code": "indie_rock",
+      "group_code": "rock",
+      "name_zh": "独立摇滚",
+      "name_en": "Indie Rock",
+      "aliases": [
+        "獨立搖滾",
+        "indie rock",
+        "인디 록"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.13",
+      "standard_group_id": "02",
+      "style_code": "grunge",
+      "group_code": "rock",
+      "name_zh": "油渍摇滚",
+      "name_en": "Grunge",
+      "aliases": [
+        "油漬搖滾"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.14",
+      "standard_group_id": "02",
+      "style_code": "hardcore",
+      "group_code": "rock",
+      "name_zh": "硬核",
+      "name_en": "Hardcore",
+      "aliases": [
+        "hardcore punk"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.15",
+      "standard_group_id": "02",
+      "style_code": "rap_metal",
+      "group_code": "rock",
+      "name_zh": "说唱金属",
+      "name_en": "Rap Metal",
+      "aliases": [
+        "饶舌金属",
+        "饒舌金屬"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.16",
+      "standard_group_id": "02",
+      "style_code": "folk_rock",
+      "group_code": "rock",
+      "name_zh": "民谣摇滚",
+      "name_en": "Folk Rock",
+      "aliases": [
+        "民謠搖滾",
+        "folk rock",
+        "folkrock",
+        "포크 록"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.17",
+      "standard_group_id": "02",
+      "style_code": "aor",
+      "group_code": "rock",
+      "name_zh": "成人取向摇滚",
+      "name_en": "AOR",
+      "aliases": [
+        "aor",
+        "album-oriented rock",
+        "adult-oriented rock"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.18",
+      "standard_group_id": "02",
+      "style_code": "new_wave",
+      "group_code": "rock",
+      "name_zh": "新浪潮",
+      "name_en": "New Wave",
+      "aliases": [
+        "new wave"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.19",
+      "standard_group_id": "02",
+      "style_code": "pop_punk",
+      "group_code": "rock",
+      "name_zh": "流行朋克",
+      "name_en": "Pop Punk",
+      "aliases": [
+        "pop punk",
+        "emo pop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.20",
+      "standard_group_id": "02",
+      "style_code": "post_punk",
+      "group_code": "rock",
+      "name_zh": "后朋克",
+      "name_en": "Post-Punk",
+      "aliases": [
+        "post-punk",
+        "post punk"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.21",
+      "standard_group_id": "02",
+      "style_code": "classic_rock",
+      "group_code": "rock",
+      "name_zh": "经典摇滚",
+      "name_en": "Classic Rock",
+      "aliases": [
+        "classic rock",
+        "British Invasion"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.22",
+      "standard_group_id": "02",
+      "style_code": "rock_and_roll",
+      "group_code": "rock",
+      "name_zh": "摇滚乐早期/摇滚舞曲",
+      "name_en": "Rock and Roll",
+      "aliases": [
+        "rock and roll",
+        "Rock & Roll",
+        "rock & roll",
+        "rock-and-roll"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.23",
+      "standard_group_id": "02",
+      "style_code": "death_metal",
+      "group_code": "rock",
+      "name_zh": "死亡金属",
+      "name_en": "Death Metal",
+      "aliases": [
+        "death metal",
+        "Death Metal/Black Metal",
+        "melodic death metal"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.24",
+      "standard_group_id": "02",
+      "style_code": "math_rock",
+      "group_code": "rock",
+      "name_zh": "数学摇滚",
+      "name_en": "Math Rock",
+      "aliases": [
+        "math rock"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.25",
+      "standard_group_id": "02",
+      "style_code": "garage_rock",
+      "group_code": "rock",
+      "name_zh": "车库摇滚",
+      "name_en": "Garage Rock",
+      "aliases": [
+        "garage rock"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.26",
+      "standard_group_id": "02",
+      "style_code": "gothic_rock",
+      "group_code": "rock",
+      "name_zh": "哥特摇滚",
+      "name_en": "Gothic Rock",
+      "aliases": [
+        "gothic rock"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.27",
+      "standard_group_id": "02",
+      "style_code": "arena_rock",
+      "group_code": "rock",
+      "name_zh": "体育场摇滚",
+      "name_en": "Arena Rock",
+      "aliases": [
+        "arena rock"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.28",
+      "standard_group_id": "02",
+      "style_code": "country_rock",
+      "group_code": "rock",
+      "name_zh": "乡村摇滚",
+      "name_en": "Country Rock",
+      "aliases": [
+        "country rock"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.29",
+      "standard_group_id": "02",
+      "style_code": "j_rock",
+      "group_code": "rock",
+      "name_zh": "日本摇滚",
+      "name_en": "J-Rock",
+      "aliases": [
+        "j-rock",
+        "j rock"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.30",
+      "standard_group_id": "02",
+      "style_code": "visual_kei",
+      "group_code": "rock",
+      "name_zh": "视觉系摇滚",
+      "name_en": "Visual Kei",
+      "aliases": [
+        "visual kei"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.31",
+      "standard_group_id": "02",
+      "style_code": "experimental_rock",
+      "group_code": "rock",
+      "name_zh": "实验摇滚",
+      "name_en": "Experimental Rock",
+      "aliases": [
+        "experimental rock",
+        "trip rock",
+        "comedy rock"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.32",
+      "standard_group_id": "02",
+      "style_code": "krautrock",
+      "group_code": "rock",
+      "name_zh": "德国实验摇滚",
+      "name_en": "Krautrock",
+      "aliases": [
+        "krautrock"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "02.33",
+      "standard_group_id": "02",
+      "style_code": "dance_rock",
+      "group_code": "rock",
+      "name_zh": "舞曲摇滚",
+      "name_en": "Dance-Rock",
+      "aliases": [
+        "dance-rock",
+        "dance rock"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.01",
+      "standard_group_id": "03",
+      "style_code": "electronic",
+      "group_code": "electronic",
+      "name_zh": "电子",
+      "name_en": "Electronic",
+      "aliases": [
+        "电子音乐",
+        "dance and electronica",
+        "indietronica",
+        "エレクトロニック",
+        "일렉트로닉"
+      ],
+      "platform_aliases": {
+        "qq_singer": [
+          "电子"
+        ],
+        "qq_playlist": [
+          "电子"
+        ],
+        "netease_playlist": [
+          "电子"
+        ],
+        "apple_music": [
+          "电子音乐",
+          "Electronic"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "03.02",
+      "standard_group_id": "03",
+      "style_code": "dance",
+      "group_code": "electronic",
+      "name_zh": "舞曲",
+      "name_en": "Dance",
+      "aliases": [
+        "Dance Music",
+        "ダンス",
+        "댄스"
+      ],
+      "platform_aliases": {
+        "netease_playlist": [
+          "舞曲"
+        ],
+        "apple_music": [
+          "舞曲",
+          "Dance"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "03.03",
+      "standard_group_id": "03",
+      "style_code": "ambient",
+      "group_code": "electronic",
+      "name_zh": "氛围电子",
+      "name_en": "Ambient",
+      "aliases": [
+        "氛围音乐",
+        "electronic ambient",
+        "dark ambient",
+        "drone",
+        "アンビエント",
+        "앰비언트"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "氛围音乐",
+          "Ambient"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "03.04",
+      "standard_group_id": "03",
+      "style_code": "downtempo",
+      "group_code": "electronic",
+      "name_zh": "慢速电子",
+      "name_en": "Downtempo",
+      "aliases": [
+        "downtempo",
+        "沙发",
+        "chillout"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "Downtempo"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "03.05",
+      "standard_group_id": "03",
+      "style_code": "experimental_electronic",
+      "group_code": "electronic",
+      "name_zh": "实验电子",
+      "name_en": "Experimental Electronic",
+      "aliases": [
+        "IDM",
+        "智能舞曲/实验音乐"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "智能舞曲/实验音乐",
+          "IDM/Experimental"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "03.06",
+      "standard_group_id": "03",
+      "style_code": "industrial",
+      "group_code": "electronic",
+      "name_zh": "工业电子",
+      "name_en": "Industrial",
+      "aliases": [
+        "工业音乐"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "工业",
+          "Industrial"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "03.07",
+      "standard_group_id": "03",
+      "style_code": "dubstep",
+      "group_code": "electronic",
+      "name_zh": "回响贝斯",
+      "name_en": "Dubstep",
+      "aliases": [
+        "dubstep",
+        "回响贝斯",
+        "덥스텝"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "回响贝斯",
+          "Dubstep"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "03.08",
+      "standard_group_id": "03",
+      "style_code": "bass_music",
+      "group_code": "electronic",
+      "name_zh": "贝斯音乐",
+      "name_en": "Bass Music",
+      "aliases": [
+        "Bass",
+        "베이스"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "贝斯",
+          "Bass"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "03.09",
+      "standard_group_id": "03",
+      "style_code": "synth_pop",
+      "group_code": "electronic",
+      "name_zh": "合成器流行",
+      "name_en": "Synth-Pop",
+      "aliases": [
+        "synth-pop",
+        "synth pop",
+        "synthpop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.10",
+      "standard_group_id": "03",
+      "style_code": "electronica",
+      "group_code": "electronic",
+      "name_zh": "电子乐",
+      "name_en": "Electronica",
+      "aliases": [
+        "일렉트로니카"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.11",
+      "standard_group_id": "03",
+      "style_code": "edm",
+      "group_code": "electronic",
+      "name_zh": "电子舞曲",
+      "name_en": "EDM",
+      "aliases": [
+        "Electronic Dance Music"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.12",
+      "standard_group_id": "03",
+      "style_code": "techno",
+      "group_code": "electronic",
+      "name_zh": "科技舞曲",
+      "name_en": "Techno",
+      "aliases": [
+        "hardcore techno",
+        "melodic techno",
+        "テクノ",
+        "테크노"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.13",
+      "standard_group_id": "03",
+      "style_code": "house",
+      "group_code": "electronic",
+      "name_zh": "浩室",
+      "name_en": "House",
+      "aliases": [
+        "House 作品",
+        "melodic house",
+        "italo house",
+        "afro house",
+        "funky house",
+        "jackin house",
+        "disco house",
+        "ハウス",
+        "하우스"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.14",
+      "standard_group_id": "03",
+      "style_code": "drum_and_bass",
+      "group_code": "electronic",
+      "name_zh": "鼓打贝斯",
+      "name_en": "Drum and Bass",
+      "aliases": [
+        "drum & bass"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.15",
+      "standard_group_id": "03",
+      "style_code": "trance",
+      "group_code": "electronic",
+      "name_zh": "出神舞曲",
+      "name_en": "Trance",
+      "aliases": [
+        "trance",
+        "psytrance",
+        "vocal trance",
+        "dance trance",
+        "pop trance",
+        "trance pop",
+        "hard trance",
+        "トランス",
+        "트랜스"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.16",
+      "standard_group_id": "03",
+      "style_code": "eurodance",
+      "group_code": "electronic",
+      "name_zh": "欧洲舞曲",
+      "name_en": "Eurodance",
+      "aliases": [
+        "eurodance",
+        "j-euro"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.17",
+      "standard_group_id": "03",
+      "style_code": "electro",
+      "group_code": "electronic",
+      "name_zh": "电子舞曲/电音",
+      "name_en": "Electro",
+      "aliases": [
+        "electro",
+        "electro-disco"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.18",
+      "standard_group_id": "03",
+      "style_code": "electro_house",
+      "group_code": "electronic",
+      "name_zh": "电子浩室",
+      "name_en": "Electro House",
+      "aliases": [
+        "electro house"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.19",
+      "standard_group_id": "03",
+      "style_code": "progressive_house",
+      "group_code": "electronic",
+      "name_zh": "前卫浩室",
+      "name_en": "Progressive House",
+      "aliases": [
+        "progressive house"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.20",
+      "standard_group_id": "03",
+      "style_code": "deep_house",
+      "group_code": "electronic",
+      "name_zh": "深度浩室",
+      "name_en": "Deep House",
+      "aliases": [
+        "deep house"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.21",
+      "standard_group_id": "03",
+      "style_code": "tech_house",
+      "group_code": "electronic",
+      "name_zh": "科技浩室",
+      "name_en": "Tech House",
+      "aliases": [
+        "tech house"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.22",
+      "standard_group_id": "03",
+      "style_code": "nu_disco",
+      "group_code": "electronic",
+      "name_zh": "新迪斯科",
+      "name_en": "Nu-Disco",
+      "aliases": [
+        "nu disco"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.23",
+      "standard_group_id": "03",
+      "style_code": "chillwave",
+      "group_code": "electronic",
+      "name_zh": "寒潮电子",
+      "name_en": "Chillwave",
+      "aliases": [
+        "chillwave"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.24",
+      "standard_group_id": "03",
+      "style_code": "italo_disco",
+      "group_code": "electronic",
+      "name_zh": "意大利迪斯科",
+      "name_en": "Italo Disco",
+      "aliases": [
+        "italo disco",
+        "italo-disco"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.25",
+      "standard_group_id": "03",
+      "style_code": "indie_dance",
+      "group_code": "electronic",
+      "name_zh": "独立舞曲",
+      "name_en": "Indie Dance",
+      "aliases": [
+        "indie dance"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.26",
+      "standard_group_id": "03",
+      "style_code": "folktronica",
+      "group_code": "electronic",
+      "name_zh": "民谣电子",
+      "name_en": "Folktronica",
+      "aliases": [
+        "folktronica"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.27",
+      "standard_group_id": "03",
+      "style_code": "hi_nrg",
+      "group_code": "electronic",
+      "name_zh": "高能迪斯科",
+      "name_en": "Hi-NRG",
+      "aliases": [
+        "hi-nrg"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.28",
+      "standard_group_id": "03",
+      "style_code": "trip_hop",
+      "group_code": "electronic",
+      "name_zh": "Trip-Hop",
+      "name_en": "Trip-Hop",
+      "aliases": [
+        "trip-hop",
+        "trip hop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.29",
+      "standard_group_id": "03",
+      "style_code": "eurobeat",
+      "group_code": "electronic",
+      "name_zh": "欧洲节拍",
+      "name_en": "Eurobeat",
+      "aliases": [
+        "eurobeat"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "03.30",
+      "standard_group_id": "03",
+      "style_code": "lo_fi",
+      "group_code": "electronic",
+      "name_zh": "低保真",
+      "name_en": "Lo-Fi",
+      "aliases": [
+        "lo-fi",
+        "lo fi"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "04.01",
+      "standard_group_id": "04",
+      "style_code": "folk",
+      "group_code": "folk",
+      "name_zh": "民谣",
+      "name_en": "Folk",
+      "aliases": [
+        "民谣音乐",
+        "フォーク",
+        "포크"
+      ],
+      "platform_aliases": {
+        "qq_singer": [
+          "民谣"
+        ],
+        "qq_playlist": [
+          "民谣"
+        ],
+        "netease_playlist": [
+          "民谣"
+        ],
+        "apple_music": [
+          "民谣",
+          "Folk"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "04.02",
+      "standard_group_id": "04",
+      "style_code": "folk_pop",
+      "group_code": "folk",
+      "name_zh": "民谣流行",
+      "name_en": "Folk Pop",
+      "aliases": [
+        "folk pop",
+        "folk-pop",
+        "한국 포크 팝"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "04.03",
+      "standard_group_id": "04",
+      "style_code": "alternative_folk",
+      "group_code": "folk",
+      "name_zh": "另类民谣",
+      "name_en": "Alternative Folk",
+      "aliases": [
+        "alternative folk",
+        "alt folk"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "04.04",
+      "standard_group_id": "04",
+      "style_code": "indie_folk",
+      "group_code": "folk",
+      "name_zh": "独立民谣",
+      "name_en": "Indie Folk",
+      "aliases": [
+        "indie folk"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "04.05",
+      "standard_group_id": "04",
+      "style_code": "campus_folk",
+      "group_code": "folk",
+      "name_zh": "校园民谣",
+      "name_en": "Campus Folk",
+      "aliases": [
+        "campus folk",
+        "校園民謠"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "05.01",
+      "standard_group_id": "05",
+      "style_code": "hiphop_rap",
+      "group_code": "hip_hop",
+      "name_zh": "嘻哈/说唱",
+      "name_en": "Hip-Hop / Rap",
+      "aliases": [
+        "嘻哈",
+        "说唱",
+        "rap",
+        "boom bap",
+        "hiphop",
+        "rapper",
+        "hardcore hip hop",
+        "east coast hip hop",
+        "southern hip hop",
+        "comedy hip hop",
+        "ヒップホップ／ラップ",
+        "힙합/랩",
+        "한국 힙합",
+        "힙합"
+      ],
+      "platform_aliases": {
+        "qq_singer": [
+          "嘻哈"
+        ],
+        "qq_playlist": [
+          "说唱"
+        ],
+        "netease_playlist": [
+          "说唱"
+        ],
+        "apple_music": [
+          "嘻哈/说唱",
+          "Hip-Hop/Rap"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "05.02",
+      "standard_group_id": "05",
+      "style_code": "alternative_hiphop",
+      "group_code": "hip_hop",
+      "name_zh": "另类说唱",
+      "name_en": "Alternative Hip-Hop",
+      "aliases": [
+        "Alternative Rap",
+        "alternative hip hop"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "另类说唱",
+          "Alternative Rap"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "05.03",
+      "standard_group_id": "05",
+      "style_code": "old_school_hiphop",
+      "group_code": "hip_hop",
+      "name_zh": "老派说唱",
+      "name_en": "Old School Hip-Hop",
+      "aliases": [
+        "Old School Rap"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "Old School Rap"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "05.04",
+      "standard_group_id": "05",
+      "style_code": "underground_hiphop",
+      "group_code": "hip_hop",
+      "name_zh": "地下说唱",
+      "name_en": "Underground Hip-Hop",
+      "aliases": [
+        "Underground Rap",
+        "underground hip hop"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "Underground Rap"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "05.05",
+      "standard_group_id": "05",
+      "style_code": "gangsta_rap",
+      "group_code": "hip_hop",
+      "name_zh": "匪帮说唱",
+      "name_en": "Gangsta Rap",
+      "aliases": [],
+      "platform_aliases": {
+        "apple_music": [
+          "Gangsta Rap"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "05.06",
+      "standard_group_id": "05",
+      "style_code": "trap",
+      "group_code": "hip_hop",
+      "name_zh": "陷阱说唱",
+      "name_en": "Trap",
+      "aliases": [
+        "trap music",
+        "Trap",
+        "trap soul"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "05.07",
+      "standard_group_id": "05",
+      "style_code": "pop_rap",
+      "group_code": "hip_hop",
+      "name_zh": "流行说唱",
+      "name_en": "Pop Rap",
+      "aliases": [
+        "pop rap",
+        "jazz rap"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "05.08",
+      "standard_group_id": "05",
+      "style_code": "conscious_hiphop",
+      "group_code": "hip_hop",
+      "name_zh": "意识说唱",
+      "name_en": "Conscious Hip-Hop",
+      "aliases": [
+        "conscious hip hop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "05.09",
+      "standard_group_id": "05",
+      "style_code": "instrumental_hiphop",
+      "group_code": "hip_hop",
+      "name_zh": "器乐嘻哈",
+      "name_en": "Instrumental Hip-Hop",
+      "aliases": [
+        "instrumental hip hop",
+        "lo-fi hip hop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "05.10",
+      "standard_group_id": "05",
+      "style_code": "christian_rap",
+      "group_code": "hip_hop",
+      "name_zh": "基督教说唱",
+      "name_en": "Christian Rap",
+      "aliases": [
+        "christian hip hop",
+        "christian rap",
+        "gospel rap",
+        "holy hip hop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "06.00",
+      "standard_group_id": "06",
+      "style_code": "rnb_soul_general",
+      "group_code": "rnb_soul",
+      "name_zh": "R&B/灵魂乐",
+      "name_en": "R&B / Soul",
+      "aliases": [
+        "节奏布鲁斯与灵魂乐",
+        "R&B／ソウル",
+        "R&B/소울"
+      ],
+      "platform_aliases": {
+        "netease_playlist": [
+          "R&B/Soul"
+        ],
+        "apple_music": [
+          "R&B/灵魂乐",
+          "R&B/Soul"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "06.01",
+      "standard_group_id": "06",
+      "style_code": "rnb",
+      "group_code": "rnb_soul",
+      "name_zh": "R&B",
+      "name_en": "R&B",
+      "aliases": [
+        "节奏布鲁斯",
+        "RNB",
+        "rhythm & blues",
+        "rhythm and blues"
+      ],
+      "platform_aliases": {
+        "qq_singer": [
+          "R&B"
+        ],
+        "qq_playlist": [
+          "R&B"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "06.02",
+      "standard_group_id": "06",
+      "style_code": "soul",
+      "group_code": "rnb_soul",
+      "name_zh": "灵魂乐",
+      "name_en": "Soul",
+      "aliases": [],
+      "platform_aliases": {
+        "apple_music": [
+          "灵魂乐",
+          "Soul"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "06.03",
+      "standard_group_id": "06",
+      "style_code": "contemporary_rnb",
+      "group_code": "rnb_soul",
+      "name_zh": "当代 R&B",
+      "name_en": "Contemporary R&B",
+      "aliases": [],
+      "platform_aliases": {
+        "apple_music": [
+          "Contemporary R&B"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "06.04",
+      "standard_group_id": "06",
+      "style_code": "funk",
+      "group_code": "rnb_soul",
+      "name_zh": "放克",
+      "name_en": "Funk",
+      "aliases": [],
+      "platform_aliases": {
+        "apple_music": [
+          "放克",
+          "Funk"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "06.05",
+      "standard_group_id": "06",
+      "style_code": "neo_soul",
+      "group_code": "rnb_soul",
+      "name_zh": "新灵魂乐",
+      "name_en": "Neo-Soul",
+      "aliases": [
+        "neo soul"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "新灵魂乐",
+          "Neo-Soul"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "06.06",
+      "standard_group_id": "06",
+      "style_code": "disco",
+      "group_code": "rnb_soul",
+      "name_zh": "迪斯科",
+      "name_en": "Disco",
+      "aliases": [
+        "disco"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "迪斯科",
+          "Disco"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "06.07",
+      "standard_group_id": "06",
+      "style_code": "pop_soul",
+      "group_code": "rnb_soul",
+      "name_zh": "流行灵魂乐",
+      "name_en": "Pop Soul",
+      "aliases": [
+        "pop soul"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "06.08",
+      "standard_group_id": "06",
+      "style_code": "alternative_rnb",
+      "group_code": "rnb_soul",
+      "name_zh": "另类 R&B",
+      "name_en": "Alternative R&B",
+      "aliases": [
+        "alternative r&b",
+        "alternative rnb"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "06.09",
+      "standard_group_id": "06",
+      "style_code": "trap_soul",
+      "group_code": "rnb_soul",
+      "name_zh": "Trap Soul",
+      "name_en": "Trap Soul",
+      "aliases": [
+        "trap soul"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "06.10",
+      "standard_group_id": "06",
+      "style_code": "blue_eyed_soul",
+      "group_code": "rnb_soul",
+      "name_zh": "蓝眼灵魂乐",
+      "name_en": "Blue-Eyed Soul",
+      "aliases": [
+        "blue-eyed soul"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "06.11",
+      "standard_group_id": "06",
+      "style_code": "hip_hop_soul",
+      "group_code": "rnb_soul",
+      "name_zh": "嘻哈灵魂乐",
+      "name_en": "Hip-Hop Soul",
+      "aliases": [
+        "hip hop soul"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "06.12",
+      "standard_group_id": "06",
+      "style_code": "deep_soul",
+      "group_code": "rnb_soul",
+      "name_zh": "深度灵魂乐",
+      "name_en": "Deep Soul",
+      "aliases": [
+        "deep soul"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "07.01",
+      "standard_group_id": "07",
+      "style_code": "jazz",
+      "group_code": "jazz_blues",
+      "name_zh": "爵士",
+      "name_en": "Jazz",
+      "aliases": [
+        "爵士乐",
+        "ジャズ",
+        "재즈"
+      ],
+      "platform_aliases": {
+        "qq_singer": [
+          "爵士"
+        ],
+        "qq_playlist": [
+          "爵士"
+        ],
+        "netease_playlist": [
+          "爵士"
+        ],
+        "apple_music": [
+          "爵士乐",
+          "Jazz"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "07.02",
+      "standard_group_id": "07",
+      "style_code": "blues",
+      "group_code": "jazz_blues",
+      "name_zh": "布鲁斯",
+      "name_en": "Blues",
+      "aliases": [
+        "蓝调",
+        "Contemporary Blues",
+        "modern blues",
+        "블루스"
+      ],
+      "platform_aliases": {
+        "qq_singer": [
+          "蓝调"
+        ],
+        "qq_playlist": [
+          "布鲁斯"
+        ],
+        "netease_playlist": [
+          "蓝调"
+        ],
+        "apple_music": [
+          "蓝调",
+          "Blues"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "07.03",
+      "standard_group_id": "07",
+      "style_code": "contemporary_jazz",
+      "group_code": "jazz_blues",
+      "name_zh": "当代爵士",
+      "name_en": "Contemporary Jazz",
+      "aliases": [
+        "contemporary jazz",
+        "当代爵士",
+        "컨템포러리 재즈"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "当代爵士",
+          "Contemporary Jazz"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "07.04",
+      "standard_group_id": "07",
+      "style_code": "jazz_fusion",
+      "group_code": "jazz_blues",
+      "name_zh": "融合爵士",
+      "name_en": "Jazz Fusion",
+      "aliases": [
+        "Fusion",
+        "jazz fusion",
+        "크로스오버 재즈"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "融合爵士",
+          "Fusion"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "07.05",
+      "standard_group_id": "07",
+      "style_code": "smooth_jazz",
+      "group_code": "jazz_blues",
+      "name_zh": "柔和爵士",
+      "name_en": "Smooth Jazz",
+      "aliases": [
+        "柔和爵士"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "柔和爵士",
+          "Smooth Jazz"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "07.06",
+      "standard_group_id": "07",
+      "style_code": "vocal_jazz",
+      "group_code": "jazz_blues",
+      "name_zh": "爵士演唱",
+      "name_en": "Vocal Jazz",
+      "aliases": [
+        "人声爵士",
+        "Vocal Jazz",
+        "vocal jazz"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "Vocal Jazz"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "07.07",
+      "standard_group_id": "07",
+      "style_code": "latin_jazz",
+      "group_code": "jazz_blues",
+      "name_zh": "拉丁爵士",
+      "name_en": "Latin Jazz",
+      "aliases": [],
+      "platform_aliases": {
+        "apple_music": [
+          "Latin Jazz"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "07.08",
+      "standard_group_id": "07",
+      "style_code": "bossa_nova",
+      "group_code": "jazz_blues",
+      "name_zh": "波萨诺瓦",
+      "name_en": "Bossa Nova",
+      "aliases": [
+        "巴萨诺瓦"
+      ],
+      "platform_aliases": {
+        "netease_playlist": [
+          "Bossa Nova"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "07.09",
+      "standard_group_id": "07",
+      "style_code": "jazz_pop",
+      "group_code": "jazz_blues",
+      "name_zh": "爵士流行",
+      "name_en": "Jazz Pop",
+      "aliases": [
+        "jazz pop"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "07.10",
+      "standard_group_id": "07",
+      "style_code": "jazz_rock",
+      "group_code": "jazz_blues",
+      "name_zh": "爵士摇滚",
+      "name_en": "Jazz Rock",
+      "aliases": [
+        "jazz rock",
+        "jazz-rock"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "07.11",
+      "standard_group_id": "07",
+      "style_code": "jazz_funk",
+      "group_code": "jazz_blues",
+      "name_zh": "爵士放克",
+      "name_en": "Jazz-Funk",
+      "aliases": [
+        "jazz-funk"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "07.12",
+      "standard_group_id": "07",
+      "style_code": "soul_jazz",
+      "group_code": "jazz_blues",
+      "name_zh": "灵魂爵士",
+      "name_en": "Soul Jazz",
+      "aliases": [
+        "soul jazz"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "07.13",
+      "standard_group_id": "07",
+      "style_code": "nu_jazz",
+      "group_code": "jazz_blues",
+      "name_zh": "新爵士",
+      "name_en": "Nu Jazz",
+      "aliases": [
+        "nu jazz"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "08.01",
+      "standard_group_id": "08",
+      "style_code": "classical",
+      "group_code": "classical",
+      "name_zh": "古典",
+      "name_en": "Classical",
+      "aliases": [
+        "古典音乐",
+        "クラシック",
+        "클래식"
+      ],
+      "platform_aliases": {
+        "qq_singer": [
+          "古典"
+        ],
+        "qq_playlist": [
+          "古典"
+        ],
+        "netease_playlist": [
+          "古典"
+        ],
+        "apple_music": [
+          "古典",
+          "Classical"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "08.02",
+      "standard_group_id": "08",
+      "style_code": "orchestral",
+      "group_code": "classical",
+      "name_zh": "管弦乐",
+      "name_en": "Orchestral",
+      "aliases": [],
+      "platform_aliases": {
+        "apple_music": [
+          "管弦乐",
+          "Orchestral"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "08.03",
+      "standard_group_id": "08",
+      "style_code": "chamber_music",
+      "group_code": "classical",
+      "name_zh": "室内乐",
+      "name_en": "Chamber Music",
+      "aliases": [],
+      "platform_aliases": {
+        "apple_music": [
+          "室内乐",
+          "Chamber Music"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "08.04",
+      "standard_group_id": "08",
+      "style_code": "opera",
+      "group_code": "classical",
+      "name_zh": "歌剧",
+      "name_en": "Opera",
+      "aliases": [
+        "歌剧",
+        "tenor",
+        "soprano"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "歌剧",
+          "Opera"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "08.05",
+      "standard_group_id": "08",
+      "style_code": "choral",
+      "group_code": "classical",
+      "name_zh": "合唱",
+      "name_en": "Choral",
+      "aliases": [
+        "合唱音乐"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "合唱",
+          "Choral"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "08.06",
+      "standard_group_id": "08",
+      "style_code": "classical_crossover",
+      "group_code": "classical",
+      "name_zh": "跨界古典",
+      "name_en": "Classical Crossover",
+      "aliases": [
+        "classical crossover",
+        "Classical Crossover",
+        "クラシック・クロスオーバー",
+        "클래식 크로스오버"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "Classical Crossover"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "08.07",
+      "standard_group_id": "08",
+      "style_code": "solo_instrumental",
+      "group_code": "classical",
+      "name_zh": "器乐独奏",
+      "name_en": "Solo Instrumental",
+      "aliases": [
+        "インストゥルメンタル",
+        "연주곡"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "器乐独奏",
+          "Solo Instrumental"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "08.08",
+      "standard_group_id": "08",
+      "style_code": "contemporary_classical",
+      "group_code": "classical",
+      "name_zh": "当代古典",
+      "name_en": "Contemporary Classical",
+      "aliases": [
+        "contemporary classical"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "当代",
+          "Contemporary Era"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "09.01",
+      "standard_group_id": "09",
+      "style_code": "light_music",
+      "group_code": "easy_listening_new_age",
+      "name_zh": "轻音乐",
+      "name_en": "Easy Listening",
+      "aliases": [
+        "Light Music",
+        "lounge",
+        "イージーリスニング",
+        "이지 리스닝",
+        "라운지"
+      ],
+      "platform_aliases": {
+        "qq_singer": [
+          "轻音乐"
+        ],
+        "qq_playlist": [
+          "轻音乐"
+        ],
+        "netease_playlist": [
+          "轻音乐"
+        ],
+        "apple_music": [
+          "Easy Listening"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "09.02",
+      "standard_group_id": "09",
+      "style_code": "new_age",
+      "group_code": "easy_listening_new_age",
+      "name_zh": "新世纪",
+      "name_en": "New Age",
+      "aliases": [
+        "新世纪音乐",
+        "冥想",
+        "治愈音乐",
+        "ニューエイジ",
+        "뉴에이지"
+      ],
+      "platform_aliases": {
+        "qq_playlist": [
+          "新世纪"
+        ],
+        "netease_playlist": [
+          "New Age"
+        ],
+        "apple_music": [
+          "New Age"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "10.01",
+      "standard_group_id": "10",
+      "style_code": "country",
+      "group_code": "country",
+      "name_zh": "乡村",
+      "name_en": "Country",
+      "aliases": [
+        "乡村音乐",
+        "country pop",
+        "컨트리"
+      ],
+      "platform_aliases": {
+        "qq_singer": [
+          "乡村"
+        ],
+        "qq_playlist": [
+          "乡村"
+        ],
+        "netease_playlist": [
+          "乡村"
+        ],
+        "apple_music": [
+          "乡村",
+          "Country"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "10.02",
+      "standard_group_id": "10",
+      "style_code": "alternative_country",
+      "group_code": "country",
+      "name_zh": "另类乡村",
+      "name_en": "Alternative Country",
+      "aliases": [
+        "Alt-Country"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "Alternative Country"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "10.03",
+      "standard_group_id": "10",
+      "style_code": "americana",
+      "group_code": "country",
+      "name_zh": "美国根源音乐",
+      "name_en": "Americana",
+      "aliases": [],
+      "platform_aliases": {
+        "apple_music": [
+          "Americana"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "10.04",
+      "standard_group_id": "10",
+      "style_code": "bluegrass",
+      "group_code": "country",
+      "name_zh": "蓝草",
+      "name_en": "Bluegrass",
+      "aliases": [
+        "蓝草音乐"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "蓝草音乐",
+          "Bluegrass"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "10.05",
+      "standard_group_id": "10",
+      "style_code": "contemporary_country",
+      "group_code": "country",
+      "name_zh": "当代乡村",
+      "name_en": "Contemporary Country",
+      "aliases": [],
+      "platform_aliases": {
+        "apple_music": [
+          "Contemporary Country"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "11.01",
+      "standard_group_id": "11",
+      "style_code": "folk_song",
+      "group_code": "traditional_world",
+      "name_zh": "民歌",
+      "name_en": "Folk Song",
+      "aliases": [
+        "传统民歌",
+        "traditional folk",
+        "传统民谣"
+      ],
+      "platform_aliases": {
+        "qq_singer": [
+          "民歌"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "11.02",
+      "standard_group_id": "11",
+      "style_code": "world_music",
+      "group_code": "traditional_world",
+      "name_zh": "世界音乐",
+      "name_en": "World Music",
+      "aliases": [
+        "Worldwide",
+        "world fusion",
+        "worldbeat",
+        "ワールド",
+        "월드 뮤직"
+      ],
+      "platform_aliases": {
+        "qq_playlist": [
+          "世界音乐"
+        ],
+        "netease_playlist": [
+          "世界音乐"
+        ],
+        "apple_music": [
+          "世界音乐",
+          "Worldwide"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "11.03",
+      "standard_group_id": "11",
+      "style_code": "chinese_traditional",
+      "group_code": "traditional_world",
+      "name_zh": "中国传统",
+      "name_en": "Chinese Traditional",
+      "aliases": [
+        "中国传统音乐",
+        "guoyue",
+        "国乐",
+        "中國傳統音樂",
+        "中国笛箫音乐"
+      ],
+      "platform_aliases": {
+        "qq_playlist": [
+          "中国传统"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "11.04",
+      "standard_group_id": "11",
+      "style_code": "chinese_style",
+      "group_code": "traditional_world",
+      "name_zh": "中国风",
+      "name_en": "Chinese Style",
+      "aliases": [
+        "国风"
+      ],
+      "platform_aliases": {
+        "qq_playlist": [
+          "中国风"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "11.05",
+      "standard_group_id": "11",
+      "style_code": "ancient_chinese_style",
+      "group_code": "traditional_world",
+      "name_zh": "古风",
+      "name_en": "Ancient Chinese Style",
+      "aliases": [
+        "古风音乐"
+      ],
+      "platform_aliases": {
+        "qq_playlist": [
+          "古风"
+        ],
+        "netease_playlist": [
+          "古风"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "11.06",
+      "standard_group_id": "11",
+      "style_code": "ethnic_music",
+      "group_code": "traditional_world",
+      "name_zh": "民族音乐",
+      "name_en": "Ethnic Music",
+      "aliases": [
+        "民族乐",
+        "藏族音乐",
+        "mongolian folk",
+        "mongolian"
+      ],
+      "platform_aliases": {
+        "netease_playlist": [
+          "民族"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "11.07",
+      "standard_group_id": "11",
+      "style_code": "reggae",
+      "group_code": "traditional_world",
+      "name_zh": "雷鬼",
+      "name_en": "Reggae",
+      "aliases": [
+        "レゲエ",
+        "레게"
+      ],
+      "platform_aliases": {
+        "netease_playlist": [
+          "雷鬼"
+        ],
+        "apple_music": [
+          "雷鬼",
+          "Reggae"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "11.08",
+      "standard_group_id": "11",
+      "style_code": "latin",
+      "group_code": "traditional_world",
+      "name_zh": "拉丁",
+      "name_en": "Latin",
+      "aliases": [
+        "拉丁音乐",
+        "reggaeton"
+      ],
+      "platform_aliases": {
+        "netease_playlist": [
+          "拉丁"
+        ],
+        "apple_music": [
+          "拉丁音乐",
+          "Latin"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "11.09",
+      "standard_group_id": "11",
+      "style_code": "flamenco",
+      "group_code": "traditional_world",
+      "name_zh": "弗拉明戈",
+      "name_en": "Flamenco",
+      "aliases": [],
+      "platform_aliases": {
+        "apple_music": [
+          "弗拉明戈舞曲",
+          "Flamenco"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "11.10",
+      "standard_group_id": "11",
+      "style_code": "tango",
+      "group_code": "traditional_world",
+      "name_zh": "探戈",
+      "name_en": "Tango",
+      "aliases": [],
+      "platform_aliases": {
+        "apple_music": [
+          "探戈舞曲",
+          "Tango"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "11.11",
+      "standard_group_id": "11",
+      "style_code": "celtic",
+      "group_code": "traditional_world",
+      "name_zh": "凯尔特",
+      "name_en": "Celtic",
+      "aliases": [
+        "凯尔特音乐"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "凯尔特音乐",
+          "Celtic"
+        ]
+      }
+    },
+    {
+      "standard_style_id": "11.12",
+      "standard_group_id": "11",
+      "style_code": "enka",
+      "group_code": "traditional_world",
+      "name_zh": "演歌",
+      "name_en": "Enka",
+      "aliases": [
+        "enka",
+        "엔카"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "11.13",
+      "standard_group_id": "11",
+      "style_code": "chinese_opera",
+      "group_code": "traditional_world",
+      "name_zh": "中国戏曲",
+      "name_en": "Chinese Opera",
+      "aliases": [
+        "戏曲",
+        "京剧",
+        "hd10: sheng",
+        "hd10: 生",
+        "hd20: dan",
+        "hd20: 旦",
+        "hd11: laosheng",
+        "hd11: 老生",
+        "hd21: qingyi",
+        "hd21: 青衣",
+        "hd30: jing",
+        "hd30: 净",
+        "hd12: xiaosheng",
+        "hd12: 小生",
+        "hd25: laodan",
+        "hd25: 老旦",
+        "laosheng",
+        "老生",
+        "school21: mei school",
+        "school21: 梅派",
+        "school22: cheng school",
+        "school22: 程派",
+        "school25: zhang school",
+        "school25: 张派",
+        "dan",
+        "旦",
+        "qingyi",
+        "hd22: huadan",
+        "hd22: 花旦",
+        "hd28: daomadan",
+        "hd28: 刀马旦",
+        "hd19: wusheng",
+        "hd19: 武生",
+        "hd23: huashan",
+        "hd23: 花衫",
+        "school24: xun school",
+        "school24: 荀派"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "11.14",
+      "standard_group_id": "11",
+      "style_code": "red_song",
+      "group_code": "traditional_world",
+      "name_zh": "红歌",
+      "name_en": "Red Song",
+      "aliases": [
+        "紅歌",
+        "red song"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "11.15",
+      "standard_group_id": "11",
+      "style_code": "christian_gospel",
+      "group_code": "traditional_world",
+      "name_zh": "基督教与福音",
+      "name_en": "Christian and Gospel",
+      "aliases": [
+        "Christian & Gospel",
+        "Gospel",
+        "contemporary christian",
+        "Christian Pop",
+        "当代基督教音乐",
+        "praise & worship",
+        "크리스천",
+        "CCM"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "11.16",
+      "standard_group_id": "11",
+      "style_code": "dancehall",
+      "group_code": "traditional_world",
+      "name_zh": "舞厅雷鬼",
+      "name_en": "Dancehall",
+      "aliases": [
+        "dancehall"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "11.17",
+      "standard_group_id": "11",
+      "style_code": "chanson",
+      "group_code": "traditional_world",
+      "name_zh": "香颂",
+      "name_en": "Chanson",
+      "aliases": [
+        "chanson française",
+        "chanson francaise"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "11.18",
+      "standard_group_id": "11",
+      "style_code": "korean_trot",
+      "group_code": "traditional_world",
+      "name_zh": "韩国 Trot",
+      "name_en": "Korean Trot",
+      "aliases": [
+        "trot",
+        "트로트"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "11.19",
+      "standard_group_id": "11",
+      "style_code": "korean_traditional",
+      "group_code": "traditional_world",
+      "name_zh": "韩国传统音乐",
+      "name_en": "Korean Traditional Music",
+      "aliases": [
+        "한국 전통 음악",
+        "한국 전통 노래"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "12.01",
+      "standard_group_id": "12",
+      "style_code": "soundtrack",
+      "group_code": "soundtrack_game",
+      "name_zh": "原声",
+      "name_en": "Soundtrack",
+      "aliases": [
+        "原声音乐",
+        "soundtrack",
+        "original soundtrack",
+        "ost",
+        "film score",
+        "score",
+        "film composer",
+        "サウンドトラック",
+        "TV サウンドトラック",
+        "TV OST"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "12.02",
+      "standard_group_id": "12",
+      "style_code": "video_game_music",
+      "group_code": "soundtrack_game",
+      "name_zh": "游戏音乐",
+      "name_en": "Video Game Music",
+      "aliases": [
+        "vgm",
+        "video game music",
+        "video game",
+        "game music",
+        "c64 remix",
+        "touhou",
+        "東方project",
+        "テレビゲーム",
+        "djmax",
+        "ez2ac",
+        "ez2dj"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "12.03",
+      "standard_group_id": "12",
+      "style_code": "musical_theatre",
+      "group_code": "soundtrack_game",
+      "name_zh": "音乐剧",
+      "name_en": "Musical Theatre",
+      "aliases": [
+        "音乐剧",
+        "musical",
+        "musical theatre",
+        "뮤지컬"
+      ],
+      "platform_aliases": {}
+    },
+    {
+      "standard_style_id": "12.04",
+      "standard_group_id": "12",
+      "style_code": "anime_music",
+      "group_code": "soundtrack_game",
+      "name_zh": "动画音乐",
+      "name_en": "Anime Music",
+      "aliases": [
+        "anime",
+        "anime music",
+        "anime song",
+        "anisong",
+        "アニメ",
+        "アニソン",
+        "일본 만화 영화"
+      ],
+      "platform_aliases": {}
+    }
+  ],
+  "auxiliary_namespace": {
+    "standard_group_id": "90",
+    "name_zh": "辅助标签",
+    "name_en": "Auxiliary Tags",
+    "include_in_genre_search": false
+  },
+  "auxiliary_tags": [
+    {
+      "standard_auxiliary_id": "90.01",
+      "tag_code": "singer_songwriter",
+      "name_zh": "唱作",
+      "name_en": "Singer-Songwriter",
+      "aliases": [
+        "唱作人"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "唱作歌手",
+          "Singer/Songwriter"
+        ]
+      },
+      "reason": "Artist role or practice rather than genre."
+    },
+    {
+      "standard_auxiliary_id": "90.02",
+      "tag_code": "children",
+      "name_zh": "儿歌",
+      "name_en": "Children's Music",
+      "aliases": [
+        "儿童音乐"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "儿童音乐",
+          "Children's Music"
+        ]
+      },
+      "reason": "Audience or usage category rather than genre family."
+    },
+    {
+      "standard_auxiliary_id": "90.03",
+      "tag_code": "spoken_comedy",
+      "name_zh": "曲艺与脱口秀",
+      "name_en": "Spoken Comedy",
+      "aliases": [
+        "曲艺",
+        "脱口秀"
+      ],
+      "platform_aliases": {
+        "apple_music": [
+          "喜剧",
+          "Comedy"
+        ]
+      },
+      "reason": "Spoken-performance category rather than music style."
+    },
+    {
+      "standard_auxiliary_id": "90.04",
+      "tag_code": "indie",
+      "name_zh": "独立音乐",
+      "name_en": "Indie",
+      "aliases": [
+        "独立",
+        "獨立音樂",
+        "indie music"
+      ],
+      "platform_aliases": {},
+      "reason": "Scene and production context; keep as auxiliary unless the source specifies a concrete style such as indie rock."
+    },
+    {
+      "standard_auxiliary_id": "90.05",
+      "tag_code": "vocaloid",
+      "name_zh": "虚拟歌声/Vocaloid",
+      "name_en": "Vocaloid / Virtual Vocal",
+      "aliases": [
+        "vocaloid",
+        "虚拟歌姬",
+        "虚拟歌手",
+        "虚拟歌声"
+      ],
+      "platform_aliases": {},
+      "reason": "Vocal synthesis scene and production context rather than a strict musical genre, but useful for artist and song tagging."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "artist-tags",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Compact formal artist tag tables plus minimal maintenance scripts.",
+  "scripts": {
+    "tags:describe": "node scripts/tags/describe-style-codes.mjs",
+    "tags:evidence": "node scripts/tags/run-artist-tag-evidence-batch.mjs",
+    "tags:build": "node scripts/tags/build-light-tags-from-evidence.mjs",
+    "tags:refresh": "node scripts/tags/refresh-light-tags-from-preview.mjs",
+    "tags:merge": "node scripts/tags/merge-new-light-tags.mjs"
+  }
+}

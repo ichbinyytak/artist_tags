@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "description": "Template for adding new artists to the completed tag package. Copy this file and replace items with real artists.",
+  "items": [
+    {
+      "artist_key": "wy:47060060",
+      "name": "灯诱LampLure",
+      "query_names": [
+        "灯诱LampLure",
+        "灯诱lamplure"
+      ],
+      "qq_artist_id": null,
+      "qq_artist_mid": null,
+      "netease_artist_id": "47060060",
+      "qq_readable_tags": [],
+      "qq_v8_raw_tag_ids": [],
+      "qq_v8_context": {
+        "source_key": "manual_new_artist",
+        "region_bucket": "cn",
+        "type_bucket": null,
+        "genre_bucket": "all"
+      },
+      "suggested_run_config": {
+        "wiki_lang": "zh",
+        "apple_country": "CN"
+      }
+    }
+  ]
+}

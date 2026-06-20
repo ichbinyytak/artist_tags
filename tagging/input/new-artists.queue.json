@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "description": "Queue file for batch-adding new artists. GitHub Actions can read this file, fetch evidence, build preview tags, and merge confirmed style rows into the formal tag tables.",
+  "items": []
+}

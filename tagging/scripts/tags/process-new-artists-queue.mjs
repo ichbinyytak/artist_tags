@@ -138,7 +138,7 @@ async function main() {
       items: group.items,
     })
 
-    await runNodeScript(path.join(ROOT_DIR, 'tagging', 'scripts', 'tags', 'run-artist-tag-evidence-batch.mjs'), [
+    await runNodeScript(path.join(ROOT_DIR, 'scripts', 'tags', 'run-artist-tag-evidence-batch.mjs'), [
       '--input', sampleFile,
       '--output', evidenceFile,
       '--summary', summaryFile,
@@ -146,14 +146,14 @@ async function main() {
       '--apple-country', group.config.apple_country,
     ])
 
-    await runNodeScript(path.join(ROOT_DIR, 'tagging', 'scripts', 'tags', 'build-light-tags-from-evidence.mjs'), [
+    await runNodeScript(path.join(ROOT_DIR, 'scripts', 'tags', 'build-light-tags-from-evidence.mjs'), [
       '--input', evidenceFile,
       '--sample', sampleFile,
       '--output', previewFile,
     ])
 
     if (options.merge) {
-      await runNodeScript(path.join(ROOT_DIR, 'tagging', 'scripts', 'tags', 'merge-new-light-tags.mjs'), [
+      await runNodeScript(path.join(ROOT_DIR, 'scripts', 'tags', 'merge-new-light-tags.mjs'), [
         '--input', previewFile,
       ])
     }
